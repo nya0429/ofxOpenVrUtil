@@ -23,12 +23,17 @@ namespace ofxOpenVrUtil {
 		const glm::mat4& getViewProjectionMatrix(vr::EVREye e) const {
 			return getProjectionMatrix(e) * getViewMatrix(e);
 		}
+		const glm::mat4& getEyeTransformMatrix(vr::EVREye e) const {
+			return eye[e].transform;
+		}
 		glm::vec3 getPosition() const { return glm::vec3(pose[3]); }
-
 		uint32_t getEyeWidth() const { return eyeWidth; }
 		uint32_t getEyeHeight() const { return eyeHeight; }
 
 		const glm::mat4& getTransformMatrix() const { return pose; }
+		const glm::vec3& getVelocityVector() const { return velocity; }
+		const glm::vec3& getAngularVelocityVector() const { return angularVelocity; }
+
 		const ofVboMesh& getHiddenMesh(vr::Hmd_Eye eye) { return hiddenMesh[eye]; }
 
 	private:
@@ -48,6 +53,8 @@ namespace ofxOpenVrUtil {
 		std::array<ofVboMesh, 2> hiddenMesh;
 
 		glm::mat4 pose;
+		glm::vec3 velocity;
+		glm::vec3 angularVelocity;
 
 	};
 }

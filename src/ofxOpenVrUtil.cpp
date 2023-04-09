@@ -145,6 +145,16 @@ namespace ofxOpenVrUtil {
 				} break;
 				case vr::TrackedDeviceClass_HMD:
 				{
+					glm::vec3 v = toGlm(trackedDevivePose[i].vVelocity);
+					if (hmd.velocity != v) {
+						hmd.velocity = v;
+					}
+
+					glm::vec3 av = toGlm(trackedDevivePose[i].vAngularVelocity);
+					if (hmd.angularVelocity != av) {
+						hmd.angularVelocity = av;
+					}
+
 					glm::mat4 m = toGlm(trackedDevivePose[i].mDeviceToAbsoluteTracking);
 					if (hmd.pose != m) {
 						hmd.pose = m;
@@ -152,6 +162,7 @@ namespace ofxOpenVrUtil {
 						Event::TrackedDeviceMove e{ hmd.getTransformMatrix(), vr::TrackedControllerRole_Invalid, i };
 						ofNotifyEvent(Event::onHmdMove, e);
 					}
+
 
 				} break;
 				case vr::TrackedDeviceClass_Invalid: break;
